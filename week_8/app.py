@@ -1,3 +1,5 @@
+from data import schema  
+
 import streamlit as st
 
 # Import your modules from the data package
