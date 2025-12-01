@@ -1,6 +1,6 @@
 import streamlit as st
-from DATA.users import register_user, login_user
-from DATA.incidents import insert_incident, fetch_all_incidents
+from data.users import register_user, login_user
+from data.incidents import insert_incident, fetch_all_incidents
 
 st.set_page_config(page_title="Cyber Intelligence Platform", layout="wide")
 
