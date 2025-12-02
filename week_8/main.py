@@ -1,3 +1,4 @@
+from services.user_service import register_user, login_user, migrate_users_from_file
 import sqlite3
 import pandas as pd
 import bcrypt
