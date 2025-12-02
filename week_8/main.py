@@ -253,3 +253,14 @@ def run_tests():
 # Main
 if __name__ == "__main__":
     run_tests()
+# Optional: migrate users from file
+success, msg = migrate_users_from_file()
+print(msg)
+
+# Register a new user
+success, msg = register_user("alice", "SecurePass123!", "analyst")
+print(msg)
+
+# Login the user
+success, msg = login_user("alice", "SecurePass123!")
+print(msg)
