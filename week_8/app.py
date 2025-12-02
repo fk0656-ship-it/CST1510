@@ -1,4 +1,4 @@
-from data import schema  
+from data import schema
 
 import streamlit as st
 
