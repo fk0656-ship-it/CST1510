@@ -1,7 +1,4 @@
-from data import schema
-
-import streamlit as st
-
+from services.user_service import register_user, login_user
 # Import your modules from the data package
 try:
     from data.users import register_user, login_user
