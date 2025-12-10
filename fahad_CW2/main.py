@@ -1,43 +1,29 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import altair as alt
 
-def show_home():
-    st.title("Home Page")
-    st.write("Welcome to the Home Page with interactive data!")
+from pages.home import show_home
+from pages.cybersecurity import show_cybersecurity
+from pages.datascience import show_datascience
+from pages.itoperations import show_itoperations
+from pages.ai_chatbot import show_ai_chat
 
-    # --- Sidebar filters ---
-    st.sidebar.header("Filters")
-    n_rows = st.sidebar.slider("Number of rows to show", min_value=5, max_value=50, value=10)
+st.sidebar.title("Navigation")
 
-    # --- Sample DataFrame ---
-    df = pd.DataFrame({
-        "Category": np.random.choice(["A", "B", "C", "D"], size=100),
-        "Value": np.random.randint(1, 100, size=100),
-        "Score": np.random.rand(100)
-    })
+page = st.sidebar.radio(
+    "Select a Page",
+    ["Home", "Cybersecurity", "Data Science", "IT Operations", "AI Chatbot"]
+)
 
-    st.subheader("Raw Data")
-    st.dataframe(df.head(n_rows))
+if page == "Home":
+    show_home()
 
-    # --- Interactive chart ---
-    st.subheader("Interactive Chart")
-    chart = alt.Chart(df.head(n_rows)).mark_bar().encode(
-        x='Category',
-        y='Value',
-        color='Category'
-    ).interactive()  # enables zooming & panning
-    st.altair_chart(chart, use_container_width=True)
+elif page == "Cybersecurity":
+    show_cybersecurity()
 
-    # --- Sidebar selection ---
-    selected_category = st.sidebar.selectbox("Select category to filter", df['Category'].unique())
-    filtered_df = df[df['Category'] == selected_category]
+elif page == "Data Science":
+    show_datascience()
 
-    st.subheader(f"Filtered Data for Category {selected_category}")
-    st.dataframe(filtered_df)
+elif page == "IT Operations":
+    show_itoperations()
 
-    # --- Metrics ---
-    st.subheader("Key Metrics")
-    st.metric("Max Value", filtered_df['Value'].max())
-    st.metric("Average Score", round(filtered_df['Score'].mean(), 2))
+elif page == "AI Chatbot":
+    show_ai_chat()
