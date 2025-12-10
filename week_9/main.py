@@ -17,6 +17,7 @@ if not st.session_state.logged_in:
             st.error("Incorrect username or password")
 else:
     st.sidebar.write(f"Logged in as: {st.session_state.username}")
+    page = st.sidebar.radio("Select Page", ["Home", "Charts", "Dashboard", "Widget"])
 
     # Dynamically import selected page
     if page == "Home":
@@ -31,3 +32,7 @@ else:
     elif page == "Widget":
         from pages.widget import show_widget
         show_widget()
+    elif page == "AI Chat":
+        from pages.ai_chatbot import show_ai_chat
+
+        show_ai_chat()
