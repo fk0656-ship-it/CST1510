@@ -4,10 +4,9 @@ import numpy as np
 import altair as alt
 
 def show_datascience():
-    st.title("Data Science Dashboard")
-    st.write("Simple interactive data exploration!")
+    st.title("📊 Data Science Page")
+    st.write("Explore datasets and visualize key metrics!")
 
-    # --- Sample dataset ---
     df = pd.DataFrame({
         "Department": np.random.choice(["HR", "Finance", "IT", "Marketing"], 100),
         "Salary": np.random.randint(3000, 10000, 100),
@@ -17,7 +16,6 @@ def show_datascience():
     st.subheader("Raw Data")
     st.dataframe(df.head(10))
 
-    # --- Sidebar filters ---
     st.sidebar.header("Filters")
     selected_dept = st.sidebar.selectbox("Select Department", df["Department"].unique())
     filtered_df = df[df["Department"] == selected_dept]
@@ -25,13 +23,11 @@ def show_datascience():
     st.subheader(f"Filtered Data: {selected_dept}")
     st.dataframe(filtered_df)
 
-    # --- Metrics ---
     col1, col2 = st.columns(2)
     col1.metric("Max Salary", filtered_df["Salary"].max())
     col2.metric("Average Experience", round(filtered_df["Experience (Years)"].mean(), 1))
 
-    # --- Chart ---
-    st.subheader("Salary vs Experience")
+    st.subheader("Salary vs Experience Chart")
     chart = alt.Chart(filtered_df).mark_circle(size=100).encode(
         x="Experience (Years)",
         y="Salary",
