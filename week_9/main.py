@@ -1,4 +1,5 @@
 import streamlit as st
+from pages.ai_chatbot import show_ai_chat
 
 # Session state for login
 if 'logged_in' not in st.session_state:
