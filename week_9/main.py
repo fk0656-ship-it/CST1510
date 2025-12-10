@@ -4,6 +4,7 @@ import altair as alt
 import sqlite3
 from openai import OpenAI
 
+# --------------------------
 # OpenAI Client
 # --------------------------
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
@@ -65,9 +66,11 @@ else:
         if 'messages' not in st.session_state:
             st.session_state.messages = []
 
+        # Display existing messages
         for message in st.session_state.messages:
             st.chat_message(message['role']).write(message['content'])
 
+        # User input
         if prompt := st.chat_input("Ask me anything"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.spinner("AI is thinking..."):
