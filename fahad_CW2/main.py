@@ -1,4 +1,5 @@
 import streamlit as st
+from pages.login import show_login
 
 # -----------------------------
 # User Database
@@ -45,19 +46,27 @@ if not st.session_state["logged_in"]:
 else:
     # Sidebar navigation
     st.sidebar.title("Navigation")
+
     page = st.sidebar.radio(
         "Select a Page",
-        ["Home", "Cybersecurity", "Data Science", "IT Operations", "AI Chatbot"]
+        ["Login", "Home", "Cybersecurity", "Data Science", "IT Operations", "AI Chatbot"]
     )
 
-    # Render selected page
-    if page == "Home":
-        show_home()
-    elif page == "Cybersecurity":
-        show_cybersecurity()
-    elif page == "Data Science":
-        show_datascience()
-    elif page == "IT Operations":
-        show_itoperations()
-    elif page == "AI Chatbot":
-        show_ai_chat()
+    if page == "Login":
+        show_login()
+    else:
+        # Only show other pages if user is logged in
+        if "logged_in" in st.session_state and st.session_state.logged_in:
+            if page == "Home":
+                show_home()
+            elif page == "Cybersecurity":
+                show_cybersecurity()
+            elif page == "Data Science":
+                show_datascience()
+            elif page == "IT Operations":
+                show_itoperations()
+            elif page == "AI Chatbot":
+                show_ai_chat()
+        else:
+            st.warning("⚠️ Please log in first to access this page.")
+            show_login()
