@@ -36,3 +36,6 @@ else:
     elif page == "AI Chat":
         from pages.ai_chat import show_ai_chat
         show_ai_chat()
+    elif page == "AI Chat":
+        from pages.ai_chat import show_ai_chat
+    show_ai_chat()

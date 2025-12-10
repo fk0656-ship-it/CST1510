@@ -1,6 +1,4 @@
 import streamlit as st
-
-# Try importing OpenAI safely
 try:
     from openai import OpenAI
     client = OpenAI(api_key=st.secrets["openai"]["api_key"])
