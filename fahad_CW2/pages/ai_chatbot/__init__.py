@@ -1,35 +1,37 @@
 import streamlit as st
-from openai import OpenAI
-
-# Initialize OpenAI client
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
+import pandas as pd
+import numpy as np
+import altair as alt
 
 def show_ai_chat():
-    st.title("AI Chatbot")
-    st.write("Ask questions about IT operations, cybersecurity, or data science!")
+    st.title("AI Chatbot Page")
+    st.write("Interactive AI Chatbot Dashboard")
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+    st.sidebar.header("Settings")
+    n_rows = st.sidebar.slider("Number of messages to simulate", 5, 50, 10)
 
-    # User input
-    user_input = st.text_input("You:", key="input")
+    df = pd.DataFrame({
+        "User": np.random.choice(["Alice", "Bob", "Charlie"], 100),
+        "Message Length": np.random.randint(1, 200, 100),
+        "Sentiment": np.random.choice(["Positive", "Neutral", "Negative"], 100)
+    })
 
-    if st.button("Send") and user_input:
-        st.session_state.messages.append({"role": "user", "content": user_input})
+    st.subheader("Chat Message Data")
+    st.dataframe(df.head(n_rows))
 
-        # Send request to OpenAI
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=st.session_state.messages
-        )
+    chart = alt.Chart(df.head(n_rows)).mark_bar().encode(
+        x='User',
+        y='Message Length',
+        color='Sentiment'
+    ).interactive()
+    st.altair_chart(chart, use_container_width=True)
 
-        reply = response.choices[0].message["content"]
-        st.session_state.messages.append({"role": "assistant", "content": reply})
+    selected_user = st.sidebar.selectbox("Select User", df['User'].unique())
+    filtered_df = df[df['User'] == selected_user]
 
-    # Display chat
-    for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            st.markdown(f"**You:** {msg['content']}")
-        else:
-            st.markdown(f"**Bot:** {msg['content']}")
+    st.subheader(f"Filtered Messages: {selected_user}")
+    st.dataframe(filtered_df)
+
+    col1, col2 = st.columns(2)
+    col1.metric("Max Message Length", filtered_df['Message Length'].max())
+    col2.metric("Positive Sentiment Count", (filtered_df['Sentiment']=="Positive").sum())
