@@ -1,10 +1,13 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
-import sqlite3
 from openai import OpenAI
 
+# --------------------------
+# OpenAI Client
+# --------------------------
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+
 # --------------------------
 # LOGIN SIMULATION
 # --------------------------
@@ -43,14 +46,11 @@ else:
 
     elif page == "Charts":
         st.subheader("Charts Page")
-        # Example chart
         df = pd.DataFrame({
             'x': range(10),
             'y': [i ** 2 for i in range(10)]
         })
-        chart = alt.Chart(df).mark_line().encode(
-            x='x', y='y'
-        )
+        chart = alt.Chart(df).mark_line().encode(x='x', y='y')
         st.altair_chart(chart, use_container_width=True)
 
     elif page == "Dashboard":
@@ -62,11 +62,9 @@ else:
         if 'messages' not in st.session_state:
             st.session_state.messages = []
 
-        # Display existing messages
         for message in st.session_state.messages:
             st.chat_message(message['role']).write(message['content'])
 
-        # User input
         if prompt := st.chat_input("Ask me anything"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.spinner("AI is thinking..."):

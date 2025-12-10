@@ -1,6 +1,0 @@
-streamlit
-pandas
-altair
-openai
-bcrypt
-
