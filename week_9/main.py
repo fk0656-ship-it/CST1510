@@ -1,6 +1,4 @@
 import streamlit as st
-from pages.ai_chatbot import show_ai_chat
-
 # Session state for login
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
@@ -19,26 +17,17 @@ if not st.session_state.logged_in:
             st.error("Incorrect username or password")
 else:
     st.sidebar.write(f"Logged in as: {st.session_state.username}")
-    page = st.sidebar.radio("Select Page", ["Home", "Charts", "Dashboard", "Widget", "AI Chat"])
 
     # Dynamically import selected page
     if page == "Home":
         from pages.home import show_home
-
         show_home()
     elif page == "Charts":
         from pages.charts import show_charts
-
         show_charts()
     elif page == "Dashboard":
         from pages.dashboard import show_dashboard
-
         show_dashboard()
     elif page == "Widget":
         from pages.widget import show_widget
-
         show_widget()
-    elif page == "AI Chat":
-        from pages.ai_chatbot import show_ai_chat  # <- corrected
-
-        show_ai_chat()
