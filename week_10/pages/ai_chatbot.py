@@ -1,13 +1,23 @@
+# week_9/pages/ai_chatbot.py
 import streamlit as st
 from openai import OpenAI
 
 # Initialize OpenAI client
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+client = None
+if "openai" in st.secrets and "api_key" in st.secrets["openai"]:
+    client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+else:
+    st.warning("OpenAI API key not found! Chatbot will be disabled.")
 
-def show_ai_chatbot():
+def show_ai_chat():
     st.subheader("AI Chat")
 
-    if "messages" not in st.session_state:
+    if client is None:
+        st.info("Chatbot is disabled because OpenAI API key is missing.")
+        return
+
+    # Initialize session state for messages
+    if 'messages' not in st.session_state:
         st.session_state.messages = []
 
     # Display previous chat messages
@@ -17,22 +27,25 @@ def show_ai_chatbot():
         else:
             st.markdown(f"**AI:** {msg['content']}")
 
-    # Get user input
-    prompt = st.chat_input("Ask me anything")
+    # Form for user input
+    with st.form(key="chat_form", clear_on_submit=True):
+        user_input = st.text_input("Your question:")
+        submit_button = st.form_submit_button("Send")
 
-    if prompt:
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        if submit_button and user_input:
+            st.session_state.messages.append({"role": "user", "content": user_input})
 
-        with st.spinner("AI is thinking..."):
+            # Call OpenAI Chat API
             response = client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=st.session_state.messages
             )
 
-            # Correct way to access response text
+            # FIX: Use .content, not ["content"]
             answer = response.choices[0].message.content
+            st.session_state.messages.append({"role": "assistant", "content": answer})
 
-        st.session_state.messages.append({"role": "assistant", "content": answer})
-
-        st.markdown(f"**You:** {prompt}")
-        st.markdown(f"**AI:** {answer}")
+    # Clear chat button
+    if st.button("Clear Chat"):
+        st.session_state.messages = []
+        st.experimental_rerun()
