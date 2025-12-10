@@ -1,0 +1,15 @@
+# Multi-Domain Intelligence Platform (CW2)
+
+This project demonstrates a beginner-friendly Streamlit app:
+
+- **Charts**: Line charts for data trends
+- **Layout**: Column-based UI
+- **Mini Dashboard**: Tabular data display
+- **Widgets**: Interactive input forms
+
+## How to run
+
+1. Create Python 3.9 virtual environment:
+
+```bash
+python3.9 -m venv venv
