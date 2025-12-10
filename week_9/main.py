@@ -23,19 +23,21 @@ else:
     # Dynamically import selected page
     if page == "Home":
         from pages.home import show_home
+
         show_home()
     elif page == "Charts":
         from pages.charts import show_charts
+
         show_charts()
     elif page == "Dashboard":
         from pages.dashboard import show_dashboard
+
         show_dashboard()
     elif page == "Widget":
         from pages.widget import show_widget
+
         show_widget()
     elif page == "AI Chat":
-        from pages.ai_chat import show_ai_chat
+        from pages.ai_chatbot import show_ai_chat  # <- corrected
+
         show_ai_chat()
-    elif page == "AI Chat":
-        from pages.ai_chat import show_ai_chat
-    show_ai_chat()
