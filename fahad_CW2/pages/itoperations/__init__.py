@@ -4,34 +4,63 @@ import numpy as np
 import altair as alt
 
 def show_itoperations():
-    st.title("IT Operations Page")
-    st.write("Interactive IT Operations Dashboard")
+    st.title("🖥 IT Operations: Helpdesk Ticket Analysis")
+    st.write("""
+    Discover which staff or steps are slowing down helpdesk ticket resolution.
+    Use buttons to explore the data and metrics interactively.
+    """)
 
-    st.sidebar.header("Filters")
-    n_rows = st.sidebar.slider("Rows to display", 5, 50, 10)
+    # --- Sample Helpdesk Data ---
+    staff = ["Alice", "Bob", "Charlie", "Diana", "Ethan"]
+    steps = ["Submit Ticket", "Assign Staff", "Resolve Issue", "Follow-up"]
+    np.random.seed(42)
 
     df = pd.DataFrame({
-        "Server": np.random.choice(["Server1", "Server2", "Server3", "Server4"], 100),
-        "CPU Usage": np.random.randint(1, 100, 100),
-        "Memory Usage": np.random.randint(1, 100, 100)
+        "Ticket ID": range(1, 101),
+        "Staff": np.random.choice(staff, 100),
+        "Step": np.random.choice(steps, 100),
+        "Time Taken (hours)": np.random.randint(1, 72, 100)  # simulate ticket resolution time
     })
 
-    st.subheader("Server Performance Data")
-    st.dataframe(df.head(n_rows))
+    st.subheader("Preview Helpdesk Tickets")
+    st.dataframe(df.head(10))
 
-    chart = alt.Chart(df.head(n_rows)).mark_line(point=True).encode(
-        x='Server',
-        y='CPU Usage',
-        color='Server'
+    # --- Buttons for Interactivity ---
+    col1, col2, col3 = st.columns(3)
+
+    if col1.button("Show Raw Data"):
+        st.write(df)
+
+    if col2.button("Staff Performance Metrics"):
+        st.write("Average Time Taken per Staff:")
+        staff_metrics = df.groupby("Staff")["Time Taken (hours)"].mean().reset_index()
+        st.dataframe(staff_metrics)
+
+    if col3.button("Step Analysis"):
+        st.write("Average Time Taken per Step:")
+        step_metrics = df.groupby("Step")["Time Taken (hours)"].mean().reset_index()
+        st.dataframe(step_metrics)
+
+    # --- Visual Charts ---
+    st.subheader("Visualize Staff Performance")
+    staff_chart = alt.Chart(df.groupby("Staff")["Time Taken (hours)"].mean().reset_index()).mark_bar().encode(
+        x='Staff',
+        y='Time Taken (hours)',
+        color='Staff'
     ).interactive()
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(staff_chart, use_container_width=True)
 
-    selected_server = st.sidebar.selectbox("Select Server", df['Server'].unique())
-    filtered_df = df[df['Server'] == selected_server]
+    st.subheader("Visualize Step Duration")
+    step_chart = alt.Chart(df.groupby("Step")["Time Taken (hours)"].mean().reset_index()).mark_bar(color='orange').encode(
+        x='Step',
+        y='Time Taken (hours)',
+        tooltip=['Step', 'Time Taken (hours)']
+    ).interactive()
+    st.altair_chart(step_chart, use_container_width=True)
 
-    st.subheader(f"Filtered: {selected_server}")
-    st.dataframe(filtered_df)
+    # --- Optional: Identify bottleneck ---
+    slowest_staff = df.groupby("Staff")["Time Taken (hours)"].mean().idxmax()
+    slowest_step = df.groupby("Step")["Time Taken (hours)"].mean().idxmax()
 
-    col1, col2 = st.columns(2)
-    col1.metric("Max CPU", filtered_df['CPU Usage'].max())
-    col2.metric("Max Memory", filtered_df['Memory Usage'].max())
+    st.info(f"⚠️ Staff causing most delays: {slowest_staff}")
+    st.info(f"⚠️ Step taking the longest time: {slowest_step}")
