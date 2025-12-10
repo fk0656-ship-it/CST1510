@@ -1,5 +1,5 @@
 import streamlit as st
 
 def show_home():
-    st.subheader("Home Page")
-    st.write("Welcome to your dashboard!")
+    st.title("Home Dashboard")
+    st.write("Welcome to your multi-domain intelligence platform!")
