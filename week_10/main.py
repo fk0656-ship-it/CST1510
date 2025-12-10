@@ -1,11 +1,8 @@
 import streamlit as st
-from openai import OpenAI
 import pandas as pd
 import numpy as np
+from openai import OpenAI
 
-# ----------------------
-# OpenAI client
-# ----------------------
 if "openai" in st.secrets and "api_key" in st.secrets["openai"]:
     client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 else:

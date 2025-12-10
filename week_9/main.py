@@ -4,11 +4,7 @@ import altair as alt
 import sqlite3
 from openai import OpenAI
 
-# --------------------------
-# OpenAI Client
-# --------------------------
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
-
 # --------------------------
 # LOGIN SIMULATION
 # --------------------------

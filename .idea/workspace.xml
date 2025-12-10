@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66611ebd-03cb-4546-8b07-e0d26177f17f" name="Changes" comment="" />
+    <list default="true" id="66611ebd-03cb-4546-8b07-e0d26177f17f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/week_9/.streamlit/secrets.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week_10/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/week_10/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week_9/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/week_9/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,12 +31,12 @@
     &quot;assignee&quot;: &quot;fk0656-ship-it&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/fk0656-ship-it/CST1510.git&quot;,
-    &quot;accountId&quot;: &quot;7d817315-8d7f-4c22-b913-8115bbdd560b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/fk0656-ship-it/CW2_CST1510_M01094434.git",
+    "accountId": "7d817315-8d7f-4c22-b913-8115bbdd560b"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -47,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/fahad/Desktop/WEEK 9 CST1510",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
