@@ -1,5 +1,7 @@
 import streamlit as st
-st.title("Home Page")
-st.write("This is Week 9 Home Page!")
-if st.button("Greet me"):
-    st.success("Hello! Welcome to Week 9 app!")
+
+def show_home():
+    st.subheader("Home Page")
+    st.write("Welcome to Week 9 app!")
+    if st.button("Click me for a greeting"):
+        st.success(f"Hello, {st.session_state.username}! Have a great day!")
