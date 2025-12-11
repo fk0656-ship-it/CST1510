@@ -34,5 +34,4 @@ else:
         show_widget()
     elif page == "AI Chat":
         from pages.ai_chatbot import show_ai_chat
-
         show_ai_chat()
