@@ -2,7 +2,7 @@ import streamlit as st
 from openai import OpenAI
 
 # Initialize OpenAI client
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def show_ai_chat():
     st.subheader("AI Chatbot")
@@ -22,11 +22,12 @@ def show_ai_chat():
         st.chat_message("user").write(prompt)
 
         with st.spinner("AI is thinking..."):
-            response = client.responses.create(
+            response = client.chat.completions.create(
                 model="gpt-4o-mini",
-                input=st.session_state.messages
+                messages=st.session_state.messages
             )
-            answer = response.output_text
+            answer = response.choices[0].message.content
+
         st.session_state.messages.append({"role": "assistant", "content": answer})
         st.chat_message("assistant").write(answer)
 
