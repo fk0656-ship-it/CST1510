@@ -26,7 +26,7 @@ def show_ai_chat():
                 model="gpt-4o-mini",
                 messages=st.session_state.messages
             )
-            answer = response.choices[0].message["content"]
+            answer = response.choices[0].message.content
 
         st.session_state.messages.append({"role": "assistant", "content": answer})
         st.chat_message("assistant").write(answer)
@@ -34,3 +34,5 @@ def show_ai_chat():
     if st.button("Clear Chat"):
         st.session_state.messages = []
         st.experimental_rerun()
+
+show_ai_chat()
