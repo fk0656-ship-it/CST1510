@@ -22,16 +22,14 @@ def show_ai_chat():
         st.chat_message("user").write(prompt)
 
         with st.spinner("AI is thinking..."):
-            response = client.chat.completions.create(
+            response = client.responses.create(
                 model="gpt-4o-mini",
-                messages=st.session_state.messages
+                input=st.session_state.messages
             )
-            answer = response.choices[0].message.content
-
+            answer = response.output_text
         st.session_state.messages.append({"role": "assistant", "content": answer})
         st.chat_message("assistant").write(answer)
 
     if st.button("Clear Chat"):
         st.session_state.messages = []
         #st.experimental_rerun()
-show_ai_chat()
